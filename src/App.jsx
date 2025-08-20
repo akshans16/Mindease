@@ -5,6 +5,7 @@ import Tips from "./Component/Tips.jsx";
 import Footer from "./Component/Footer.jsx";
 import {useIsVisible} from "./hooks/useIsVisible.jsx"; // You put your hook in src/hooks/useIsVisible.js
 import {useRef} from "react";
+import BreathingExercise from "./Component/BreathingExercise.jsx";
 
 function SectionWrapper({children}) {
     const ref = useRef();
@@ -38,6 +39,7 @@ function App() {
             <SectionWrapper>
                 <Tips />
             </SectionWrapper>
+            {/* <BreathingExercise/> */}
             <Footer />
         </div>
     );

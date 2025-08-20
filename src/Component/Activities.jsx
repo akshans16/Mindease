@@ -1,10 +1,12 @@
 import Card from "../templates/Card";
-import React, {useState} from "react";
+import {useState} from "react";
 import Wheel from "./Wheel";
+import BreathingExercise from "./BreathingExercise";
 
 export default function Dashboard() {
     const [activeFilter, setActiveFilter] = useState("all");
     const [showWheel, setShowWheel] = useState(false);
+    const [showBreathing, setShowBreathing] = useState(false);
     const cards = [
         {
             image: "png/wheel.png",
@@ -12,9 +14,7 @@ export default function Dashboard() {
             message: "Spin the wheel to do something fun.",
             buttonText: "Spin",
             category: "fun",
-            action: () => {setShowWheel(true);
-                console.log("Wheel clicked");
-            }
+            action: () => setShowWheel(true),
         },
         {
             image: "png/meditation.png",
@@ -29,6 +29,7 @@ export default function Dashboard() {
             message: "Breathe deeply and relax your mind.",
             buttonText: "Breathe",
             category: "relax",
+            action: () => setShowBreathing(true),
         },
         {
             image: "png/thought_dump.png",
@@ -112,8 +113,10 @@ export default function Dashboard() {
                         <Card key={idx} {...card} />
                     ))}
                 </div>
-            {/* Show Wheel if triggered */}
-              {showWheel && <Wheel onClose={() => setShowWheel(false)} />}
+                {/* Show Wheel if triggered */}
+                {showWheel && <Wheel onClose={() => setShowWheel(false)} />}
+                {/* Show Breathing Exercise card if triggered */}
+                {showBreathing && <BreathingExercise onClose={() => setShowBreathing(false)} />}
             </div>
         </>
     );
