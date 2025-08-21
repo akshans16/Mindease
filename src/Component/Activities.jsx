@@ -2,11 +2,16 @@ import Card from "../templates/Card";
 import {useState} from "react";
 import Wheel from "./Wheel";
 import BreathingExercise from "./BreathingExercise";
+import Meditation from "./Meditation";
+import Nap from "./Nap";
 
 export default function Dashboard() {
     const [activeFilter, setActiveFilter] = useState("all");
     const [showWheel, setShowWheel] = useState(false);
     const [showBreathing, setShowBreathing] = useState(false);
+    const [showMeditation, setShowMeditation] = useState(false);
+    const [showNap, setShowNap] = useState(false);
+
     const cards = [
         {
             image: "png/wheel.png",
@@ -22,6 +27,7 @@ export default function Dashboard() {
             message: "Find your inner peace with guided meditation.",
             buttonText: "Meditate",
             category: "relax",
+            action : () => setShowMeditation(true),
         },
         {
             image: "png/lungs.png",
@@ -32,11 +38,12 @@ export default function Dashboard() {
             action: () => setShowBreathing(true),
         },
         {
-            image: "png/thought_dump.png",
-            title: "Brain Dump",
-            message: "Clear your mind and organize your thoughts.",
-            buttonText: "Dump",
+            image: "png/nap.png",
+            title: "Nap",
+            message: "Take a short nap to recharge yourself.",
+            buttonText: "Start Nap",
             category: "relax",
+            action : () => setShowNap(true)
         },
         {
             image: "png/movie.png",
@@ -115,9 +122,15 @@ export default function Dashboard() {
                 </div>
                 {/* Show Wheel if triggered */}
                 {showWheel && <Wheel onClose={() => setShowWheel(false)} />}
+                {/* Show Meditation card if triggered */}
+                {showMeditation && <Meditation onClose={() => setShowMeditation(false)} />}
                 {/* Show Breathing Exercise card if triggered */}
                 {showBreathing && <BreathingExercise onClose={() => setShowBreathing(false)} />}
+                {/* Show Nap card if triggered */}
+                {showNap && <Nap onClose={() => setShowNap(false)} />}
             </div>
         </>
     );
 }
+
+
