@@ -2,9 +2,11 @@ import {useState, useRef, useEffect} from "react";
 
 const MusicPlayer = () => {
     const [playlist, setPlaylist] = useState([
-        {title: "Heaven - AShamaluevMusic", src: "music/track-1.mp3", duration: 0},
+        {title: "Heaven - AShamaluevMusic", src: "music/Heaven-Music.mp3", duration: 0},
         {title: "Zen - AShamaluevMusic", src: "music/Zen - AShamaluevMusic.mp3", duration: 0},
-        {title: "Calm Waves", src: "music/track-3.mp3", duration: 0},
+        {title: "Calm Waves", src: "music/track-1.mp3", duration: 0},
+        {title: "Peaceful Mind", src: "music/track-2.mp3", duration: 0},
+        {title: "Tranquil Dreams", src: "music/track-3.mp3", duration: 0},
     ]);
 
     const [currentTrack, setCurrentTrack] = useState(0);
@@ -31,11 +33,7 @@ const MusicPlayer = () => {
         audioRef.current.src = playlist[currentTrack].src;
     }, [currentTrack, playlist]);
 
-    // const [currentTrack, setCurrentTrack] = useState(0);
-    
-    // const audioRef = useRef(new Audio(playlist[0].src));
-
-    // Sync audio element with play/pause state
+    // Sync audio element with play/pause state and track end
     useEffect(() => {
         const audio = audioRef.current;
 
@@ -43,12 +41,19 @@ const MusicPlayer = () => {
             setProgress(audio.currentTime);
         };
 
+        const handleEnded = () => {
+            // when track ends, go to next but pause by default
+            const nextIndex = (currentTrack + 1) % playlist.length;
+            changeTrack(nextIndex, false); // false => don't auto-play
+            setIsPlaying(false); // update button state
+        };
+
         audio.addEventListener("timeupdate", updateProgress);
-        audio.addEventListener("ended", handleNext);
+        audio.addEventListener("ended", handleEnded);
 
         return () => {
             audio.removeEventListener("timeupdate", updateProgress);
-            audio.removeEventListener("ended", handleNext);
+            audio.removeEventListener("ended", handleEnded);
         };
     }, [currentTrack]);
 
@@ -65,24 +70,25 @@ const MusicPlayer = () => {
         setIsPlaying(!isPlaying);
     };
 
-    // Next track
+    // Next track (respects isPlaying)
     const handleNext = () => {
         const nextIndex = (currentTrack + 1) % playlist.length;
-        changeTrack(nextIndex);
+        changeTrack(nextIndex, isPlaying);
     };
 
-    // Previous track
+    // Previous track (respects isPlaying)
     const handlePrev = () => {
         const prevIndex = (currentTrack - 1 + playlist.length) % playlist.length;
-        changeTrack(prevIndex);
+        changeTrack(prevIndex, isPlaying);
     };
 
-    const changeTrack = (index) => {
+    // 🔹 Updated changeTrack with control over play/pause
+    const changeTrack = (index, shouldPlay) => {
         audioRef.current.pause();
         audioRef.current = new Audio(playlist[index].src);
         setCurrentTrack(index);
         setProgress(0);
-        if (isPlaying) {
+        if (shouldPlay) {
             audioRef.current.play();
         }
     };
@@ -99,7 +105,7 @@ const MusicPlayer = () => {
             <div
                 className="relative overflow-hidden rounded-lg 
         bg-white/10 backdrop-blur-md border border-white/20 
-        p-6 transition-all duration-300 group hover:shadow-lg hover:shadow-primary/20"
+        p-6 transition-all duration-300 group hover:shadow-lg hover:shadow-primary/20 "
             >
                 {/* Decorative shadow layer */}
                 <div className="absolute inset-0 z-0 h-full w-full rounded-lg shadow-[0_0_6px_rgba(0,0,0,0.03),0_2px_6px_rgba(0,0,0,0.08),inset_3px_3px_0.5px_-3px_rgba(0,0,0,0.9),inset_-3px_-3px_0.5px_-3px_rgba(0,0,0,0.85),inset_1px_1px_1px_-0.5px_rgba(0,0,0,0.6),inset_-1px_-1px_1px_-0.5px_rgba(0,0,0,0.6),inset_0_0_6px_6px_rgba(0,0,0,0.12),inset_0_0_2px_2px_rgba(0,0,0,0.06),0_0_12px_rgba(255,255,255,0.15)]" />
@@ -117,9 +123,7 @@ const MusicPlayer = () => {
                                 <p className="font-semibold leading-none tracking-tight text-foreground dark:text-white">
                                     Now Playing
                                 </p>
-                                <p className="text-sm text-muted-foreground/80 dark:text-zinc-400">
-                                    {playlist[currentTrack].title}
-                                </p>
+                                <p className="text-sm text-[#53718f]">{playlist[currentTrack].title}</p>
                             </div>
                         </div>
                     </div>
@@ -152,20 +156,39 @@ const MusicPlayer = () => {
 
                             {/* Time Labels */}
                             <div className="flex justify-between text-xs font-medium">
-                                <span className="tabular-nums text-zinc-600 dark:text-zinc-400">
-                                    {formatTime(progress)}
-                                </span>
-                                <span className="tabular-nums text-zinc-600 dark:text-zinc-400">
+                                <span className="tabular-nums text-[#53718f] ">{formatTime(progress)}</span>
+                                <span className="tabular-nums text-[#53718f]">
                                     {formatTime(playlist[currentTrack].duration)}
                                 </span>
                             </div>
                         </div>
 
                         {/* Controls */}
-                        <div className="mt-6 flex items-center justify-center gap-6">
+                        <div className=" flex items-center justify-center gap-6">
                             {/* Previous track button */}
                             <button
-                                onClick={handlePrev}
+                                onClick={() => {
+                                    const wasPlaying = isPlaying;
+                                    handlePrev();
+
+                                    if (audioRef.current) {
+                                        // Stop any current attempt
+                                        audioRef.current.pause();
+                                        audioRef.current.currentTime = 0;
+
+                                        // Wait until metadata is ready
+                                        audioRef.current.onloadedmetadata = () => {
+                                            if (wasPlaying) {
+                                                audioRef.current.play().catch((err) => {
+                                                    console.warn("Autoplay prevented:", err);
+                                                });
+                                                setIsPlaying(true);
+                                            } else {
+                                                setIsPlaying(false);
+                                            }
+                                        };
+                                    }
+                                }}
                                 className="relative inline-flex items-center transition-colors justify-center cursor-pointer gap-2 whitespace-nowrap rounded-full text-sm font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 bg-transparent hover:scale-105 duration-300 transition text-primary h-9 w-9 text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
                                 aria-label="Previous track"
                             >
@@ -183,7 +206,7 @@ const MusicPlayer = () => {
                                         strokeWidth={2}
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
-                                        className="size-5 text-[#617e99]"
+                                        className="size-5 text-[#262629]"
                                     >
                                         <path d="m15 18-6-6 6-6" />
                                     </svg>
@@ -209,7 +232,7 @@ const MusicPlayer = () => {
                                             strokeWidth={2}
                                             strokeLinecap="round"
                                             strokeLinejoin="round"
-                                            className="size-5 text-[#617e99]"
+                                            className="size-5 text-[#262629]"
                                         >
                                             <rect width={4} height={16} x={6} y={4} />
                                             <rect width={4} height={16} x={14} y={4} />
@@ -226,7 +249,7 @@ const MusicPlayer = () => {
                                             strokeWidth={2}
                                             strokeLinecap="round"
                                             strokeLinejoin="round"
-                                            className="size-5 text-[#617e99]"
+                                            className="size-5 text-[#262629]"
                                         >
                                             <polygon points="6 4 20 12 6 20 6 4" />
                                         </svg>
@@ -274,7 +297,7 @@ const MusicPlayer = () => {
                                         strokeWidth={2}
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
-                                        className="size-5 text-[#617e99]"
+                                        className="size-5 text-[#262629]"
                                     >
                                         <path d="m9 18 6-6-6-6" />
                                     </svg>

@@ -60,7 +60,7 @@ export default function Dashboard() {
             category: "media",
         },
         {
-            image: "png/music.png",
+            image: "png/chirping-2.png",
             title: "Music",
             message: "Relax and unwind with music of nature.",
             buttonText: "Listen",
