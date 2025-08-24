@@ -1,4 +1,3 @@
-import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFacebookF, faTwitter, faInstagram, faLinkedinIn} from "@fortawesome/free-brands-svg-icons";
 
@@ -9,7 +8,7 @@ export default function Footer() {
                 {/* Brand Section */}
                 <div>
                     <div className="flex items-center gap-2">
-                        <img src="png/diamonds.png" alt="Diamond PNG" className="w-6 h-6" />
+                        <img src="/png/mindease.png" alt="LOGO" className="w-10 h-10" />
                         <div className="flex-shrink-0 text-xl font-bold font-['Open Sans'] text-black">MindEase</div>
                     </div>
                     <p className="mt-3 text-md leading-6 text-[#181818]">

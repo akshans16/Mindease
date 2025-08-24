@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import Card from "../templates/Card";
 import {useState} from "react";
 import Wheel from "./Wheel";
@@ -11,6 +12,7 @@ export default function Dashboard() {
     const [showBreathing, setShowBreathing] = useState(false);
     const [showMeditation, setShowMeditation] = useState(false);
     const [showNap, setShowNap] = useState(false);
+    const navigate = useNavigate();
 
     const cards = [
         {
@@ -58,6 +60,7 @@ export default function Dashboard() {
             message: "Read inspiring and motivational stories.",
             buttonText: "Read",
             category: "media",
+            action: () => navigate("/stories"),
         },
         {
             image: "png/chirping-2.png",

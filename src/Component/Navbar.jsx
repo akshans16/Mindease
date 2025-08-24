@@ -11,7 +11,7 @@ export default function Navbar() {
                 <div className="flex items-center justify-between h-16">
                     {/* Logo */}
                     <div className="flex items-center gap-2">
-                        <img src="png/diamonds.png" alt="Diamond PNG" className="w-6 h-6" />
+                        <img src="/png/mindease.png" alt="LOGO" className="w-10 h-10" />
                         <div className="flex-shrink-0 text-xl font-bold font-['Open Sans']">MindEase</div>
                     </div>
 

@@ -57,9 +57,6 @@ export default function Meditation({onClose}) {
                     </div>
                 </div>
                 {/* Instructions */}
-                {/* <div className="absolute w-[60%] h-auto top-1/2 left-1/2 -translate-x-1/2 -translate-y-15  text-center font-bold text-md font-[Comic Neue]">
-            Sit comfortably. Don't try to stop your thoughts; just observe them as they come and go.
-        </div> */}
                 <div
                     className="absolute top-1/2 left-1/2 
   -translate-x-1/2 -translate-y-15
