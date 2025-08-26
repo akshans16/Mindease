@@ -1,11 +1,14 @@
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Navbar from "./Component/Navbar";
 import Hero from "./Component/Hero";
 import Activities from "./Component/Activities.jsx";
 import Tips from "./Component/Tips.jsx";
+import Tracker from "./Component/Tracker";
 import Footer from "./Component/Footer.jsx";
 import {useIsVisible} from "./hooks/useIsVisible.jsx"; // You put your hook in src/hooks/useIsVisible.js
 import {useRef} from "react";
-import BreathingExercise from "./Component/BreathingExercise.jsx";
+import StoriesPage from "./pages/StoriesPage.jsx";
+import StoryDetailPage from "./pages/StoryDetailPage.jsx";
 
 function SectionWrapper({children}) {
     const ref = useRef();
@@ -26,22 +29,40 @@ function SectionWrapper({children}) {
     );
 }
 
+
 function App() {
     return (
-        <div className="flex flex-col items-center">
+        <Router>
             <Navbar />
-            <SectionWrapper>
-                <Hero />
-            </SectionWrapper>
-            <SectionWrapper>
-                <Activities />
-            </SectionWrapper>
-            <SectionWrapper>
-                <Tips />
-            </SectionWrapper>
-            {/* <BreathingExercise/> */}
+            <Routes>
+                {/* Home Page */}
+                <Route
+                    path="/"
+                    element={
+                        <div className="flex flex-col items-center">
+                            <SectionWrapper>
+                                <Hero />
+                            </SectionWrapper>
+                            <SectionWrapper>
+                                <Activities />
+                            </SectionWrapper>
+                            <SectionWrapper>
+                                <Tips />
+                            </SectionWrapper>
+                            <SectionWrapper>
+                                <Tracker />
+                            </SectionWrapper>
+                            
+                        </div>
+                    }
+                />
+
+                {/* Stories Page */}
+                <Route path="/stories" element={<StoriesPage />} />
+                <Route path="/stories/:id" element={<StoryDetailPage />} />
+            </Routes>
             <Footer />
-        </div>
+        </Router>
     );
 }
 

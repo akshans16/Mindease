@@ -1,71 +1,90 @@
-import React, {useState} from "react";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faHome, faInfoCircle, faEnvelope, faCog, faBars, faTimes} from "@fortawesome/free-solid-svg-icons";
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHome,
+  faInfoCircle,
+  faEnvelope,
+  faBlog,
+  faBars,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function Navbar() {
-    const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-    return (
-        <nav className="fixed top-0 left-0 w-full h-auto bg-white border-b border-[#FAF9F6] shadow-md z-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-16">
-                    {/* Logo */}
-                    <div className="flex items-center gap-2">
-                        <img src="png/diamonds.png" alt="Diamond PNG" className="w-6 h-6" />
-                        <div className="flex-shrink-0 text-xl font-bold font-['Open Sans']">MindEase</div>
-                    </div>
+  return (
+    <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[90%] md:w-[80%] 
+      bg-gradient-to-r from-sky-300/70 via-sky-500/70 to-blue-600/70 
+      backdrop-blur-xl border border-white/20 shadow-lg 
+      rounded-2xl z-50 transition-all duration-500">
+      
+      <div className="max-w-7xl mx-auto px-6 sm:px-8">
+        <div className="flex items-center justify-between h-16">
+          
+          {/* Logo */}
+          <div className="flex items-center gap-2">
+            <img src="/png/mindease.png" alt="LOGO" className="w-9 h-9" />
+            <span className="text-2xl font-[Playfair_Display] font-bold text-white tracking-wide">
+              MindEase
+            </span>
+          </div>
 
-                    {/* Desktop Menu (no icons) */}
-                    <div className="hidden font-bold font-['Open Sans'] md:flex space-x-6 ">
-                        <a href="#home" className="hover:text-blue-500">
-                            Home
-                        </a>
-                        <a href="#about" className="hover:text-blue-500">
-                            About
-                        </a>
-                        <a href="#contact" className="hover:text-blue-500">
-                            Contact
-                        </a>
-                        <a href="#services" className="hover:text-blue-500">
-                            Services
-                        </a>
-                    </div>
-
-                    {/* Mobile Menu Button */}
-                    <div className="md:hidden">
-                        <button onClick={() => setIsOpen(!isOpen)} className=" focus:outline-none">
-                            {isOpen ? (
-                                <FontAwesomeIcon icon={faTimes} size="lg" />
-                            ) : (
-                                <FontAwesomeIcon icon={faBars} size="lg" />
-                            )}
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            {/* Mobile Dropdown with Icons */}
-            {isOpen && (
-                <div
-                    className={` font-['Open Sans'] flex justify-around md:hidden 
-              bg-white/50 backdrop-blur-sm text-md p-2
-              transform transition-all duration-300 ease-in-out overflow-hidden
-              ${isOpen ? "max-h-40 opacity-100 translate-y-0" : "max-h-0 opacity-0 -translate-y-5"}`}
+          {/* Desktop Centered Menu */}
+          <div className="hidden md:flex flex-1 justify-center">
+            <div className="flex space-x-12 font-medium font-[Poppins]">
+              {[
+                { href: "#home", label: "Home" },
+                { href: "#about", label: "About" },
+                { href: "#blog", label: "Blog" },
+                { href: "#contact", label: "Contact" },
+              ].map((item, idx) => (
+                <a
+                  key={idx}
+                  href={item.href}
+                  className="relative text-white/90 hover:text-white tracking-wide transition-all duration-300 group"
                 >
-                    <a href="#home" className="block hover:text-blue-500 flex items-center gap-1">
-                        <FontAwesomeIcon icon={faHome} /> Home
-                    </a>
-                    <a href="#about" className="block hover:text-blue-500 flex items-center gap-1">
-                        <FontAwesomeIcon icon={faInfoCircle} /> About
-                    </a>
-                    <a href="#contact" className="block hover:text-blue-500 flex items-center gap-1">
-                        <FontAwesomeIcon icon={faEnvelope} /> Contact
-                    </a>
-                    <a href="#services" className="block hover:text-blue-500 flex items-center gap-1">
-                        <FontAwesomeIcon icon={faCog} /> Services
-                    </a>
-                </div>
-            )}
-        </nav>
-    );
+                  {item.label}
+                  <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-white transition-all duration-300 group-hover:w-full"></span>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-white focus:outline-none"
+            >
+              {isOpen ? (
+                <FontAwesomeIcon icon={faTimes} size="lg" />
+              ) : (
+                <FontAwesomeIcon icon={faBars} size="lg" />
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Dropdown */}
+      {isOpen && (
+        <div className="md:hidden bg-gradient-to-b from-sky-400/90 to-blue-600/90 
+          text-white font-[Poppins] text-lg shadow-lg rounded-b-2xl px-6 py-4 
+          flex flex-col space-y-4">
+          <a href="#home" className="flex items-center gap-2 hover:text-sky-200 transition-colors">
+            <FontAwesomeIcon icon={faHome} /> Home
+          </a>
+          <a href="#about" className="flex items-center gap-2 hover:text-sky-200 transition-colors">
+            <FontAwesomeIcon icon={faInfoCircle} /> About
+          </a>
+          <a href="#blog" className="flex items-center gap-2 hover:text-sky-200 transition-colors">
+            <FontAwesomeIcon icon={faBlog} /> Blog
+          </a>
+          <a href="#contact" className="flex items-center gap-2 hover:text-sky-200 transition-colors">
+            <FontAwesomeIcon icon={faEnvelope} /> Contact
+          </a>
+        </div>
+      )}
+    </nav>
+  );
 }
