@@ -1,8 +1,10 @@
 import MusicPlayer from "./MusicPlayer";
 import {createPortal} from "react-dom";
-import {useEffect} from "react";
+import {useRef, useEffect} from "react";
+
 
 export default function Meditation({onClose}) {
+    const playerRef = useRef();
     // lock scroll on mount, restore on unmount
     useEffect(() => {
         document.body.style.overflow = "hidden";
@@ -10,6 +12,14 @@ export default function Meditation({onClose}) {
             document.body.style.overflow = "";
         };
     }, []);
+
+    // Handle close
+    const handleClose = () => {
+        if (playerRef.current) {
+            playerRef.current.stop(); // stop music directly
+        }
+        onClose();
+    };
 
     return createPortal(
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
@@ -40,7 +50,7 @@ export default function Meditation({onClose}) {
                 {/* Close Button */}
                 <button
                     className="absolute w-10 top-4 right-4 p-2 bg-white/20 rounded-xl shadow-md font-bold font-[Open Sans] hover:cursor-pointer"
-                    onClick={onClose}
+                    onClick={handleClose}
                 >
                     X
                 </button>
@@ -59,16 +69,18 @@ export default function Meditation({onClose}) {
                 {/* Instructions */}
                 <div
                     className="absolute top-1/2 left-1/2 
-  -translate-x-1/2 -translate-y-15
-  text-center text-md font-medium font-Helvetica 
-  text-[#004526] drop-shadow-lg leading-relaxed bg-white/30 w-full p-3"
+                              -translate-x-1/2 -translate-y-15
+                              text-center text-md font-medium font-Helvetica 
+                              text-[#004526] drop-shadow-lg leading-relaxed bg-white/30 w-full p-3"
                 >
-                    Sit comfortably. Don't try to stop your thoughts;<br /> just observe them as they come and go.
+                    Sit comfortably. Don't try to stop your thoughts;
+                    <br /> just observe them as they come and go.
                 </div>
 
                 {/* Music Player */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-12 w-full ">
-                    <MusicPlayer />
+                    {/* Stop music when modal is closed */}
+                    <MusicPlayer ref={playerRef} />
                 </div>
             </div>
         </div>,

@@ -1,6 +1,6 @@
-import {useState, useRef, useEffect} from "react";
+import { forwardRef, useImperativeHandle, useRef, useState, useEffect } from "react";
 
-const MusicPlayer = () => {
+const MusicPlayer = forwardRef((props,ref) => {
     const [playlist, setPlaylist] = useState([
         {title: "Heaven - AShamaluevMusic", src: "music/Heaven-Music.mp3", duration: 0},
         {title: "Zen - AShamaluevMusic", src: "music/Zen - AShamaluevMusic.mp3", duration: 0},
@@ -14,7 +14,17 @@ const MusicPlayer = () => {
     const [progress, setProgress] = useState(0);
     const audioRef = useRef(new Audio(playlist[0].src));
 
-    // 🔹 Preload durations for ALL tracks once
+    // Imperative handle for parent components
+    // this funnction is used to stop music when modal is closed
+    useImperativeHandle(ref, () => ({
+        stop() {
+            audioRef.current.pause();
+            audioRef.current.currentTime = 0;
+            setIsPlaying(false);
+        },
+    }));
+
+    // Preload durations for ALL tracks once
     useEffect(() => {
         playlist.forEach((track, index) => {
             const tempAudio = new Audio(track.src);
@@ -310,6 +320,6 @@ const MusicPlayer = () => {
             </div>
         </div>
     );
-};
+});
 
 export default MusicPlayer;
