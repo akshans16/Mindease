@@ -4,6 +4,7 @@ import {useState} from "react";
 import Wheel from "./Wheel";
 import BreathingExercise from "./BreathingExercise";
 import Meditation from "./Meditation";
+import DanceParty from "./DanceParty";
 import Nap from "./Nap";
 
 export default function Dashboard() {
@@ -12,6 +13,7 @@ export default function Dashboard() {
     const [showBreathing, setShowBreathing] = useState(false);
     const [showMeditation, setShowMeditation] = useState(false);
     const [showNap, setShowNap] = useState(false);
+    const [showDanceParty, setShowDanceParty] = useState(false);
     const navigate = useNavigate();
 
     const cards = [
@@ -63,11 +65,12 @@ export default function Dashboard() {
             action: () => navigate("/stories"),
         },
         {
-            image: "png/chirping-2.png",
-            title: "Music",
-            message: "Relax and unwind with music of nature.",
-            buttonText: "Listen",
-            category: "nature",
+            image: "png/skeleton-dance.png",
+            title: "Vibe Fest",
+            message: "Vibe with the magical flow of music.",
+            buttonText: "Vibe",
+            category: "Entertainment",
+            action : () => setShowDanceParty(true)
         },
         {
             image: "png/drawing.png",
@@ -131,6 +134,8 @@ export default function Dashboard() {
                 {showBreathing && <BreathingExercise onClose={() => setShowBreathing(false)} />}
                 {/* Show Nap card if triggered */}
                 {showNap && <Nap onClose={() => setShowNap(false)} />}
+                {/* Show Dance Party card if triggered */}
+                {showDanceParty && <DanceParty onClose={() => setShowDanceParty(false)} />}
             </div>
         </>
     );
