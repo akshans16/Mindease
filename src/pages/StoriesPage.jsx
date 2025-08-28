@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firebase.js";
 import StoryCard from "../templates/StoryCard.jsx";
@@ -14,7 +14,6 @@ export default function StoriesPage() {
           id: doc.id,       // 👈 important! Firestore doc id
           ...doc.data()
         }));
-        console.log("Story list:", storiesData);
         setStories(storiesData);
       } catch (error) {
         console.error("Error fetching stories: ", error);

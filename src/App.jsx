@@ -9,6 +9,8 @@ import {useIsVisible} from "./hooks/useIsVisible.jsx"; // You put your hook in s
 import {useRef} from "react";
 import StoriesPage from "./pages/StoriesPage.jsx";
 import StoryDetailPage from "./pages/StoryDetailPage.jsx";
+import MovieRecommender from "./pages/MovieRecommender.jsx";
+import MovieGenreList from "./pages/MovieGenreList.jsx";
 
 function SectionWrapper({children}) {
     const ref = useRef();
@@ -33,13 +35,13 @@ function SectionWrapper({children}) {
 function App() {
     return (
         <Router>
-            <Navbar />
             <Routes>
                 {/* Home Page */}
                 <Route
                     path="/"
                     element={
                         <div className="flex flex-col items-center">
+                            <Navbar />
                             <SectionWrapper>
                                 <Hero />
                             </SectionWrapper>
@@ -60,6 +62,8 @@ function App() {
                 {/* Stories Page */}
                 <Route path="/stories" element={<StoriesPage />} />
                 <Route path="/stories/:id" element={<StoryDetailPage />} />
+                <Route path="/movies" element={<MovieRecommender />} />
+                <Route path="/movies/genre/:genreId" element={<MovieGenreList />} />
             </Routes>
             <Footer />
         </Router>

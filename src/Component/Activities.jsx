@@ -5,6 +5,7 @@ import Wheel from "./Wheel";
 import BreathingExercise from "./BreathingExercise";
 import Meditation from "./Meditation";
 import DanceParty from "./DanceParty";
+import MovieRecommender from "../pages/MovieRecommender";
 import Nap from "./Nap";
 
 export default function Dashboard() {
@@ -15,6 +16,7 @@ export default function Dashboard() {
     const [showNap, setShowNap] = useState(false);
     const [showDanceParty, setShowDanceParty] = useState(false);
     const navigate = useNavigate();
+    
 
     const cards = [
         {
@@ -55,6 +57,7 @@ export default function Dashboard() {
             message: "Enjoy a selection of calming movies.",
             buttonText: "Watch",
             category: "media",
+            action: () => navigate("/movies"),
         },
         {
             image: "png/stories.png",
