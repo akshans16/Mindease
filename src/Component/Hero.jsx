@@ -16,6 +16,7 @@ function Hero() {
               alt="Meditation Animation"
               className="relative z-10 w-[85%] md:w-[85%] lg:w-[95%] animate-float"
             />
+            
 
             {/* SVGs Behind the GIF */}
             <div className="absolute inset-0">

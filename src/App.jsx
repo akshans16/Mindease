@@ -5,7 +5,8 @@ import Activities from "./Component/Activities.jsx";
 import Tips from "./Component/Tips.jsx";
 import Tracker from "./Component/Tracker";
 import Footer from "./Component/Footer.jsx";
-import {useIsVisible} from "./hooks/useIsVisible.jsx"; // You put your hook in src/hooks/useIsVisible.js
+import ScrollToTop from "./Component/ScrollToTop.jsx";
+import {useIsVisible} from "./hooks/useIsVisible.jsx";
 import {useRef} from "react";
 import StoriesPage from "./pages/StoriesPage.jsx";
 import StoryDetailPage from "./pages/StoryDetailPage.jsx";
@@ -15,6 +16,7 @@ import MovieGenreList from "./pages/MovieGenreList.jsx";
 function SectionWrapper({children}) {
     const ref = useRef();
     const isVisible = useIsVisible(ref);
+    
     return (
         <div className="w-full overflow-hidden flex flex-col justify-center items-center">
             <div
@@ -33,8 +35,10 @@ function SectionWrapper({children}) {
 
 
 function App() {
+   
     return (
         <Router>
+            <ScrollToTop />
             <Routes>
                 {/* Home Page */}
                 <Route
