@@ -3,11 +3,17 @@
 
 @custom-variant dark (&:is(.dark *));
 @tailwind utilities;
-
+*{
+  scrollbar-width:auto;
+  scrollbar-color: #DDD3F9 transparent;
+}
 body {
   font-family: 'Poppins', sans-serif;
 }
-
+@font-face {
+  font-family: 'Pixel';
+  src: url('./font/Pixel-LCD-7.woff') format('woff');
+}
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

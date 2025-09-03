@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Navbar from "./Component/Navbar";
 import Hero from "./Component/Hero";
 import Activities from "./Component/Activities.jsx";
@@ -12,11 +12,13 @@ import StoriesPage from "./pages/StoriesPage.jsx";
 import StoryDetailPage from "./pages/StoryDetailPage.jsx";
 import MovieRecommender from "./pages/MovieRecommender.jsx";
 import MovieGenreList from "./pages/MovieGenreList.jsx";
+import ChatBot from "./Component/ChatBot.jsx";
+import Tetris from "./games/Tetris/components/Tetris.jsx";
 
 function SectionWrapper({children}) {
     const ref = useRef();
     const isVisible = useIsVisible(ref);
-    
+
     return (
         <div className="w-full overflow-hidden flex flex-col justify-center items-center">
             <div
@@ -32,15 +34,12 @@ function SectionWrapper({children}) {
         </div>
     );
 }
-
-
 function App() {
-   
     return (
         <Router>
             <ScrollToTop />
             <Routes>
-                {/* Home Page */}
+                {/* Main site layout */}
                 <Route
                     path="/"
                     element={
@@ -58,18 +57,56 @@ function App() {
                             <SectionWrapper>
                                 <Tracker />
                             </SectionWrapper>
-                            
+                            <Footer />
+                            <ChatBot />
                         </div>
                     }
                 />
 
-                {/* Stories Page */}
-                <Route path="/stories" element={<StoriesPage />} />
-                <Route path="/stories/:id" element={<StoryDetailPage />} />
-                <Route path="/movies" element={<MovieRecommender />} />
-                <Route path="/movies/genre/:genreId" element={<MovieGenreList />} />
+                <Route
+                    path="/stories"
+                    element={
+                        <>
+                            <Navbar />
+                            <StoriesPage />
+                            <Footer />
+                        </>
+                    }
+                />
+                <Route
+                    path="/stories/:id"
+                    element={
+                        <>
+                            <Navbar />
+                            <StoryDetailPage />
+                            <Footer />
+                        </>
+                    }
+                />
+                <Route
+                    path="/movies"
+                    element={
+                        <>
+                            <Navbar />
+                            <MovieRecommender />
+                            <Footer />
+                        </>
+                    }
+                />
+                <Route
+                    path="/movies/genre/:genreId"
+                    element={
+                        <>
+                            <Navbar />
+                            <MovieGenreList />
+                            <Footer />
+                        </>
+                    }
+                />
+
+                {/* Game route: no header, footer, chatbot */}
+                <Route path="/tetris" element={<Tetris />} />
             </Routes>
-            <Footer />
         </Router>
     );
 }

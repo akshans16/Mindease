@@ -5,7 +5,6 @@ import Wheel from "./Wheel";
 import BreathingExercise from "./BreathingExercise";
 import Meditation from "./Meditation";
 import DanceParty from "./DanceParty";
-import MovieRecommender from "../pages/MovieRecommender";
 import Nap from "./Nap";
 
 export default function Dashboard() {
@@ -81,6 +80,14 @@ export default function Dashboard() {
             message: "Unleash your creativity with drawing.",
             buttonText: "Draw",
             category: "fun",
+        },
+        {
+            image: "png/tetris.png",
+            title: "Tetris",
+            message: "Take a break and play Tetris to reset.",
+            buttonText: "Play",
+            category: "fun",
+            action: () => window.open("/tetris", "_blank"),
         },
     ];
 

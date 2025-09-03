@@ -12,7 +12,7 @@ function Hero() {
           <div className="relative flex justify-center md:justify-start">
             {/* GIF */}
             <img
-              src="/meditation.gif"
+              src="/relax_2.png"
               alt="Meditation Animation"
               className="relative z-10 w-[85%] md:w-[85%] lg:w-[95%] animate-float"
             />
@@ -39,13 +39,13 @@ function Hero() {
               </svg>
 
               {/* Flower */}
-              <svg
+              {/* <svg
                 className="absolute bottom-8 left-4 w-12 h-12 text-yellow-400 animate-float"
                 fill="currentColor"
                 viewBox="0 0 24 24"
               >
                 <path d="M12 2C10.9 2 10 2.9 10 4v2a2 2 0 0 0 4 0V4c0-1.1-.9-2-2-2zm6.36 3.64c-.78-.78-2.05-.78-2.83 0l-1.42 1.42a2 2 0 0 0 2.83 2.83l1.42-1.42c.78-.78.78-2.05 0-2.83zM20 10h-2a2 2 0 0 0 0 4h2c1.1 0 2-.9 2-2s-.9-2-2-2zm-3.64 6.36c-.78.78-.78 2.05 0 2.83s2.05.78 2.83 0 .78-2.05 0-2.83l-1.42-1.42a2 2 0 0 0-2.83 2.83l1.42 1.42zM12 20c1.1 0 2-.9 2-2v-2a2 2 0 0 0-4 0v2c0 1.1.9 2 2 2zm-6.36-3.64c.78.78 2.05.78 2.83 0l1.42-1.42a2 2 0 0 0-2.83-2.83L5.64 13.5a2 2 0 0 0 0 2.83zM4 10H2c-1.1 0-2 .9-2 2s.9 2 2 2h2a2 2 0 0 0 0-4z" />
-              </svg>
+              </svg> */}
 
               {/* Puzzle Piece */}
               <svg
