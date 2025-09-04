@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import MovieModal from "./MovieModal";
 
-const API_KEY = "d1e67013db183782b9e4b63c98a0b2f6";
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
 const IMG_BASE = "https://image.tmdb.org/t/p/w500";
 
