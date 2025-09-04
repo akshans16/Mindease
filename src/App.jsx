@@ -3,7 +3,7 @@ import Navbar from "./Component/Navbar";
 import Hero from "./Component/Hero";
 import Activities from "./Component/Activities.jsx";
 import Tips from "./Component/Tips.jsx";
-import Draw from "./Component/Draw.jsx"
+import Draw from "./Component/Draw.jsx";
 import Tracker from "./Component/Tracker";
 import Footer from "./Component/Footer.jsx";
 import ScrollToTop from "./Component/ScrollToTop.jsx";
@@ -58,16 +58,64 @@ function App() {
                             <SectionWrapper>
                                 <Tracker />
                             </SectionWrapper>
-                            
+                            <Footer />
+                            <ChatBot />
                         </div>
                     }
                 />
 
-                {/* Stories Page */}
-                <Route path="/stories" element={<StoriesPage />} />
-                <Route path="/stories/:id" element={<StoryDetailPage />} />
-                <Route path="/movies" element={<MovieRecommender />} />
-                <Route path="/movies/genre/:genreId" element={<MovieGenreList />} />
+                <Route
+                    path="/stories"
+                    element={
+                        <>
+                            <Navbar />
+                            <StoriesPage />
+                            <Footer />
+                        </>
+                    }
+                />
+                <Route
+                    path="/stories/:id"
+                    element={
+                        <>
+                            <Navbar />
+                            <StoryDetailPage />
+                            <Footer />
+                        </>
+                    }
+                />
+                <Route
+                    path="/movies"
+                    element={
+                        <>
+                            <Navbar />
+                            <MovieRecommender />
+                            <Footer />
+                        </>
+                    }
+                />
+                <Route
+                    path="/draw"
+                    element={
+                        <>
+                            <Draw />
+                            <Footer />
+                        </>
+                    }
+                />
+                <Route
+                    path="/movies/genre/:genreId"
+                    element={
+                        <>
+                            <Navbar />
+                            <MovieGenreList />
+                            <Footer />
+                        </>
+                    }
+                />
+
+                {/* Game route: no header, footer, chatbot */}
+                <Route path="/tetris" element={<Tetris />} />
             </Routes>
         </Router>
     );

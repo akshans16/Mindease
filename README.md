@@ -39,8 +39,18 @@ MindEase is a modern, interactive web app designed to help users recharge, refoc
    > - `tailwindcss`, `@tailwindcss/vite`  
    > - `@fortawesome/fontawesome-svg-core`, `@fortawesome/free-brands-svg-icons`, `@fortawesome/free-solid-svg-icons`, `@fortawesome/react-fontawesome`  
    > - `lucide-react`  
+   > - `@radix-ui/react-slot`  
+   > - `animate.css`  
+   > - `firebase`  
+   > - `framer-motion`  
+   > - `react-router-dom`  
+   > - `react-slick`  
+   > - `slick-carousel`  
+   > - `styled-components`  
    > - `vite`, `@vitejs/plugin-react`  
-   > - (Dev) `eslint`, `@eslint/js`, `eslint-plugin-react-hooks`, `eslint-plugin-react-refresh`, `globals`, `@types/react`, `@types/react-dom`
+   > - (Dev) `eslint`, `@eslint/js`, `eslint-plugin-react-hooks`, `eslint-plugin-react-refresh`, `globals`, `@types/react`, `@types/react-dom`, `tw-animate-css`
+
+   
 3. **Start the development server:**
    ```sh
    npm run dev
