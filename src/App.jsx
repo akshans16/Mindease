@@ -35,6 +35,7 @@ function SectionWrapper({children}) {
         </div>
     );
 }
+
 function App() {
     return (
         <Router>
@@ -78,7 +79,6 @@ function App() {
                     path="/stories/:id"
                     element={
                         <>
-                            <Navbar />
                             <StoryDetailPage />
                             <Footer />
                         </>
@@ -88,7 +88,7 @@ function App() {
                     path="/movies"
                     element={
                         <>
-                            <Navbar />
+                            
                             <MovieRecommender />
                             <Footer />
                         </>
@@ -107,7 +107,6 @@ function App() {
                     path="/movies/genre/:genreId"
                     element={
                         <>
-                            <Navbar />
                             <MovieGenreList />
                             <Footer />
                         </>
