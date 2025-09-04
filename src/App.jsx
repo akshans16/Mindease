@@ -3,6 +3,7 @@ import Navbar from "./Component/Navbar";
 import Hero from "./Component/Hero";
 import Activities from "./Component/Activities.jsx";
 import Tips from "./Component/Tips.jsx";
+import Draw from "./Component/Draw.jsx"
 import Tracker from "./Component/Tracker";
 import Footer from "./Component/Footer.jsx";
 import {useIsVisible} from "./hooks/useIsVisible.jsx"; // You put your hook in src/hooks/useIsVisible.js
@@ -55,6 +56,7 @@ function App() {
                                 <Tracker />
                             </SectionWrapper>
                             
+                            
                         </div>
                     }
                 />
@@ -64,6 +66,8 @@ function App() {
                 <Route path="/stories/:id" element={<StoryDetailPage />} />
                 <Route path="/movies" element={<MovieRecommender />} />
                 <Route path="/movies/genre/:genreId" element={<MovieGenreList />} />
+                <Route path="/draw" element={<Draw/>} />
+
             </Routes>
             <Footer />
         </Router>

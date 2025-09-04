@@ -5,6 +5,7 @@ import Wheel from "./Wheel";
 import BreathingExercise from "./BreathingExercise";
 import Meditation from "./Meditation";
 import DanceParty from "./DanceParty";
+import Draw from "./Draw";
 import MovieRecommender from "../pages/MovieRecommender";
 import Nap from "./Nap";
 
@@ -81,6 +82,7 @@ export default function Dashboard() {
             message: "Unleash your creativity with drawing.",
             buttonText: "Draw",
             category: "fun",
+            action:()=> navigate("/draw"),
         },
     ];
 
