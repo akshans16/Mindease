@@ -35,42 +35,49 @@ function SectionWrapper({children}) {
         </div>
     );
 }
-function App() {
-    return (
-        <Router>
-            <ScrollToTop />
-            <Routes>
-                {/* Main site layout */}
-                <Route
-                    path="/"
-                    element={
-                        <div className="flex flex-col items-center">
-                            <Navbar />
-                            <SectionWrapper>
-                                <Hero />
-                            </SectionWrapper>
-                            <SectionWrapper>
-                                <Activities />
-                            </SectionWrapper>
-                            <SectionWrapper>
-                                <Tips />
-                            </SectionWrapper>
-                            <SectionWrapper>
-                                <Tracker />
-                            </SectionWrapper>
-                            
-                        </div>
-                    }
-                />
 
-                {/* Stories Page */}
-                <Route path="/stories" element={<StoriesPage />} />
-                <Route path="/stories/:id" element={<StoryDetailPage />} />
-                <Route path="/movies" element={<MovieRecommender />} />
-                <Route path="/movies/genre/:genreId" element={<MovieGenreList />} />
-            </Routes>
-        </Router>
-    );
+function App() {
+  return (
+    <Router>
+      <ScrollToTop />
+      <Routes>
+        {/* Main site layout */}
+        <Route
+          path="/"
+          element={
+            <div className="flex flex-col items-center">
+              <Navbar />
+              <SectionWrapper>
+                <Hero />
+              </SectionWrapper>
+              <SectionWrapper>
+                <Activities />
+              </SectionWrapper>
+              <SectionWrapper>
+                <Tips />
+              </SectionWrapper>
+              <SectionWrapper>
+                <Tracker />
+              </SectionWrapper>
+              <Footer />
+              <ChatBot />
+            </div>
+          }
+        />
+
+        <Route path="/stories" element={<><Navbar /><StoriesPage /><Footer /></>} />
+        <Route path="/stories/:id" element={<><Navbar /><StoryDetailPage /><Footer /></>} />
+        <Route path="/movies" element={<><Navbar /><MovieRecommender /><Footer /></>} />
+        <Route path="/movies/genre/:genreId" element={<><Navbar /><MovieGenreList /><Footer /></>} />
+
+        {/* Game route: no header, footer, chatbot */}
+        <Route path="/tetris" element={<Tetris />} />
+        <Route path="/draw" element={<Draw />} />
+
+
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
