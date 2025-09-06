@@ -34,16 +34,25 @@ function MovieRecommender() {
 
     // fetch movies by genre
     useEffect(() => {
-        genres.forEach((genre) => {
-            fetch(`${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genre.id}`)
-            .then((res) => res.json())
-            .then((data) => {
-                setGenreMovies((prev) => ({
-                    ...prev,
-                    [genre.id]: data.results || [],
-                }));
-            });
-        });
+        const fetchGenres = async () => {
+            try {
+                const responses = await Promise.all(
+                    genres.map((genre) =>
+                        fetch(`${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genre.id}`)
+                        .then((res) => res.json())
+                        .then((data) => ({id: genre.id, results: data.results || []}))
+                    )
+                );
+                const genreData = {};
+                responses.forEach(({id, results}) => {
+                    genreData[id] = results;
+                });
+                setGenreMovies(genreData);
+            } catch (err) {
+                console.error("Error fetching genre movies:", err);
+            }
+        };
+        fetchGenres();
     }, []);
 
     // carousel settings

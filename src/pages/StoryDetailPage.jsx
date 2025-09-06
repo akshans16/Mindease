@@ -1,7 +1,5 @@
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {doc, getDoc} from "firebase/firestore";
-import {db} from "../firebase/firebase.js";
 
 export default function StoryDetailPage() {
     const {id} = useParams();
@@ -18,6 +16,9 @@ export default function StoryDetailPage() {
     useEffect(() => {
         const fetchStory = async () => {
             try {
+                const {db} = await import("../firebase/firebase.js");
+                const {doc, getDoc} = await import("firebase/firestore");
+
                 const docRef = doc(db, "Stories", id);
                 const docSnap = await getDoc(docRef);
                 if (docSnap.exists()) {

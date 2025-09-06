@@ -4,47 +4,53 @@ import { useEffect, useState } from "react";
 const MovieModal = ({ movie, onClose, IMG_BASE }) => {
   const [providers, setProviders] = useState([]);
   const [trailerKey, setTrailerKey] = useState(null);
+  const [loading, setLoading] = useState(true);
   const apiKey = import.meta.env.VITE_TMDB_API_KEY;
 
   useEffect(() => {
-    const fetchProviders = async () => {
-      try {
-        const res = await fetch(
-          `https://api.themoviedb.org/3/movie/${movie.id}/watch/providers?api_key=${apiKey}`
-        );
-        const data = await res.json();
+    if (!movie) return;
 
-        // pick country (example: India "IN")
-        const countryData = data.results["IN"];
-        if (countryData && countryData.flatrate) {
+    const controller = new AbortController();
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const [provRes, trailerRes] = await Promise.all([
+          fetch(
+            `https://api.themoviedb.org/3/movie/${movie.id}/watch/providers?api_key=${apiKey}`,
+            { signal: controller.signal }
+          ),
+          fetch(
+            `https://api.themoviedb.org/3/movie/${movie.id}/videos?api_key=${apiKey}&language=en-US`,
+            { signal: controller.signal }
+          ),
+        ]);
+
+        const provData = await provRes.json();
+        const trailerData = await trailerRes.json();
+
+        // Providers
+        const countryData = provData.results?.["IN"];
+        if (countryData?.flatrate) {
           setProviders(countryData.flatrate);
         }
-      } catch (err) {
-        console.error("Error fetching providers:", err);
-      }
-    };
 
-    const fetchTrailer = async () => {
-      try {
-        const res = await fetch(
-          `https://api.themoviedb.org/3/movie/${movie.id}/videos?api_key=${import.meta.env.VITE_TMDB_API_KEY}&language=en-US`
-        );
-        const data = await res.json();
-
-        const trailer = data.results.find(
+        // Trailer
+        const trailer = trailerData.results.find(
           (vid) => vid.type === "Trailer" && vid.site === "YouTube"
         );
-        if (trailer) {
-          setTrailerKey(trailer.key);
-        }
+        if (trailer) setTrailerKey(trailer.key);
       } catch (err) {
-        console.error("Error fetching trailer:", err);
+        if (err.name !== "AbortError") {
+          console.error("Error fetching modal data:", err);
+        }
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchProviders();
-    fetchTrailer();
-  }, [movie.id]);
+    fetchData();
+    return () => controller.abort();
+  }, [movie?.id, apiKey]);
 
   // Lock scroll when modal opens
   useEffect(() => {
@@ -53,7 +59,6 @@ const MovieModal = ({ movie, onClose, IMG_BASE }) => {
       document.body.style.overflow = "auto";
     };
   }, []);
-
 
   if (!movie) return null;
 
@@ -68,8 +73,10 @@ const MovieModal = ({ movie, onClose, IMG_BASE }) => {
           ✕
         </button>
 
-        {/* Trailer */}
-        {trailerKey ? (
+        {/* Loading or Trailer */}
+        {loading ? (
+          <p className="text-center text-gray-400">Loading trailer...</p>
+        ) : trailerKey ? (
           <iframe
             className="w-full h-64 rounded-lg mb-4"
             src={`https://www.youtube.com/embed/${trailerKey}`}
@@ -80,9 +87,10 @@ const MovieModal = ({ movie, onClose, IMG_BASE }) => {
           />
         ) : (
           <img
-            src={`${IMG_BASE}${movie.backdrop_path}`}
+            src={`${IMG_BASE.replace("w500", "w780")}${movie.backdrop_path}`}
             alt={movie.title}
             className="w-full h-64 rounded-lg mb-4 object-cover"
+            loading="lazy"
           />
         )}
 
@@ -90,7 +98,7 @@ const MovieModal = ({ movie, onClose, IMG_BASE }) => {
         <h2 className="text-2xl font-bold mb-2">{movie.title}</h2>
         <p className="text-gray-300 text-sm mb-4">{movie.overview}</p>
 
-        {/* Where to watch */}
+        {/* Providers */}
         {providers.length > 0 ? (
           <div className="mt-4">
             <h3 className="text-lg font-semibold mb-2">Where to Watch:</h3>
@@ -101,7 +109,6 @@ const MovieModal = ({ movie, onClose, IMG_BASE }) => {
                   className="px-3 py-1 bg-blue-600 rounded-lg text-sm"
                 >
                   {prov.provider_name}
-                
                 </li>
               ))}
             </ul>

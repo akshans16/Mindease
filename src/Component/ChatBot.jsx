@@ -13,13 +13,6 @@ function ChatBot() {
         const updateHistory = (text) => {
             setChatHistory((prev) => [...prev.filter((msg) => msg.text !== "Thinking..."), {role: "model", text}]);
         };
-
-        // Format chat history for API request
-        // history = history.map(({role, text}) => ({
-        //     role,
-        //     parts: [{text}],
-        // }));
-
         // 🔁 Add the system message
         const systemMessage = {
             role: "user",

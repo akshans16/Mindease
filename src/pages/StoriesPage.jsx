@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase/firebase.js";
+const { db } = await import("../firebase/firebase.js");
 import StoryCard from "../templates/StoryCard.jsx";
 
 export default function StoriesPage() {
