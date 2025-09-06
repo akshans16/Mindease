@@ -2,11 +2,11 @@ import { forwardRef, useImperativeHandle, useRef, useState, useEffect } from "re
 
 const MusicPlayer = forwardRef((props,ref) => {
     const [playlist, setPlaylist] = useState([
-        {title: "Heaven - AShamaluevMusic", src: "music/Heaven-Music.mp3", duration: 0},
-        {title: "Zen - AShamaluevMusic", src: "music/Zen - AShamaluevMusic.mp3", duration: 0},
-        {title: "Calm Waves", src: "music/track-1.mp3", duration: 0},
-        {title: "Peaceful Mind", src: "music/track-2.mp3", duration: 0},
-        {title: "Tranquil Dreams", src: "music/track-3.mp3", duration: 0},
+        {title: "Heaven - AShamaluevMusic", src: "/music/Heaven-Music.mp3", duration: 0},
+        {title: "Zen - AShamaluevMusic", src: "/music/Zen - AShamaluevMusic.mp3", duration: 0},
+        {title: "Calm Waves", src: "/music/track-1.mp3", duration: 0},
+        {title: "Peaceful Mind", src: "/music/track-2.mp3", duration: 0},
+        {title: "Tranquil Dreams", src: "/music/track-3.mp3", duration: 0},
     ]);
 
     const [currentTrack, setCurrentTrack] = useState(0);

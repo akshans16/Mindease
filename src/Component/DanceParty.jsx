@@ -16,10 +16,10 @@ function DanceParty({onClose}) {
     const audioRef = useRef(null);
 
     const tracks = [
-        "beats/Aaron Smith - Dancin.mp3",
-        "beats/bensound-bymyside.mp3",
-        "beats/bensound-clapandyell.mp3",
-        "beats/bensound-jazzyfrenchy.mp3",
+        "/beats/Aaron Smith - Dancin.mp3",
+        "/beats/bensound-bymyside.mp3",
+        "/beats/bensound-clapandyell.mp3",
+        "/beats/bensound-jazzyfrenchy.mp3",
     ];
 
     function getRandomTrack() {
@@ -67,7 +67,7 @@ function DanceParty({onClose}) {
                 {/* Video background */}
                 <video
                     ref={videoRef}
-                    src="png/party_bg.mp4"
+                    src="/png/party_bg.mp4"
                     loop
                     muted
                     playsInline
@@ -83,14 +83,14 @@ function DanceParty({onClose}) {
                     <button
                         onClick={onClose}
                         className="absolute top-2 right-2 border-2 border-white  rounded-sm bg-black/50
-            text-xl text-gray-200 px-1 hover:text-white cursor-pointer z-20"
+            text-xl text-gray-200 px-1 hover:cursor-pointer  hover:bg-white/20"
                     >
                         &times;
                     </button>
 
                     <div className="flex items-center gap-2">
                         <div className="w-10 h-10">
-                            <img src="png/disco.gif" alt="Disco Ball" className="w-full h-full object-cover" />
+                            <img src="/png/disco.gif" alt="Disco Ball" className="w-full h-full object-cover" />
                         </div>
                         <h2 className="text-2xl font-bold my-5  text-center text-white">Vibe With Beats </h2>
                     </div>
@@ -105,7 +105,7 @@ function DanceParty({onClose}) {
                             onClick={togglePlay}
                             className="w-full mt-auto flex items-center justify-center gap-2 
             border-2 border-white rounded-md text-white px-5 py-2 font-medium bg-black/50
-            hover:bg-white/10 transition"
+            hover:bg-white/20 cursor-pointer"
                         >
                             <i className={`fa-solid ${isPlaying ? "fa-pause" : "fa-play"}`}></i>
                             {isPlaying ? "Pause" : "Play"}
@@ -115,7 +115,7 @@ function DanceParty({onClose}) {
                             onClick={shuffleTrack}
                             className="w-full mt-auto flex items-center justify-center gap-2 
             border-2 border-white rounded-md text-white px-5 py-2 font-medium bg-black/50
-            hover:bg-white/10 transition"
+            hover:bg-white/20 cursor-pointer"
                         >
                             <i class="fa-solid fa-shuffle"></i>
                             Change Track

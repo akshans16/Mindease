@@ -346,7 +346,7 @@ const TimerCard = ({onClose}) => {
                         animation: "gradientShift 3s ease infinite",
                     }}
                 >
-                    <img src="png/sleeping.jpeg" alt="Sleep GIF" className="object-cover w-full h-full rounded-2xl" />
+                    <img src="/png/sleeping.jpeg" alt="Sleep GIF" className="object-cover w-full h-full rounded-2xl" />
                 </div>
 
                 <div className="text-center mb-8">

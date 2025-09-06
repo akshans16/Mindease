@@ -43,7 +43,7 @@ export default function Meditation({onClose}) {
             <div className="relative border-2 border-zinc-900 rounded-2xl w-full max-w-sm h-[550px] fade-in overflow-hidden">
                 {/* Background */}
                 <img
-                    src="png/meditation-bg.jpg"
+                    src="/png/meditation-bg.jpg"
                     alt="player-background"
                     className="w-full h-full object-cover rounded-2xl blur-[3px]"
                 />
@@ -59,7 +59,7 @@ export default function Meditation({onClose}) {
                     <div className="floating-element mb-6 flex justify-start">
                         <div className="w-32 h-44 rounded-2xl p-1 ">
                             <img
-                                src="png/meditation-icon.png"
+                                src="/png/meditation-icon.png"
                                 alt="Meditation Icon"
                                 className="w-full h-full rounded-xl object-fit block"
                             />

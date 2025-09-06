@@ -23,7 +23,7 @@ function Tips() {
             </svg>
           </div>
           <img
-            src="png/helpingg.png"
+            src="/png/helpingg.png"
             alt="Help Others"
             className="w-3/4 rounded-2xl shadow-lg"
           />
@@ -84,7 +84,7 @@ function Tips() {
             </svg>
           </div>
           <img
-            src="png/dosome.jpg"
+            src="/png/dosome.jpg"
             alt="Do Something"
             className="w-3/4 rounded-2xl shadow-lg"
           />
@@ -106,7 +106,7 @@ function Tips() {
       </svg>
     </div>
     <img
-      src="png/sleepy.gif"
+      src="/png/sleepy.gif"
       alt="Mental Declutter Ritual"
       className="w-3/4 rounded-2xl shadow-lg"
     />
@@ -175,7 +175,7 @@ function Tips() {
       </svg>
     </div>
     <img
-      src="png/readbook.png"
+      src="/png/readbook.png"
       alt="Read Something"
       className="w-3/4 rounded-2xl shadow-lg"
     />
